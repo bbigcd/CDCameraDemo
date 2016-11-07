@@ -75,9 +75,9 @@ static NSString *const ID = @"cell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    CameraViewController *vc = [[CameraViewController alloc] init];
+    CameraViewController *vc = [[CameraViewController alloc] init];
     
-    Camera1ViewController *vc = [[Camera1ViewController alloc] init];
+//    Camera1ViewController *vc = [[Camera1ViewController alloc] init];
     
 //    [self.navigationController pushViewController:vc animated:YES];
     [self presentViewController:vc animated:YES completion:nil];

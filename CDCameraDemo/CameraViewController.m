@@ -7,8 +7,22 @@
 //
 
 #import "CameraViewController.h"
+#import <ImageIO/ImageIO.h>
+#import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
 
-@interface CameraViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+typedef NS_ENUM(BOOL, CameraType) {
+    FrontFacingCamera,
+    RearFacingCamera,
+};
+
+@interface CameraViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
+
+@property (nonatomic, strong) AVCaptureDevice *videoDevice;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic, strong) AVCaptureDeviceInput *videoInput;
+@property (nonatomic, strong) AVCaptureMovieFileOutput *movieOutput;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
 
 @end
 
@@ -16,50 +30,232 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-//    1.使用前应先判断是否可用
-    //照相机是否可用
-    BOOL isCameraAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-    //相册是否可用
-    BOOL isPhotoLibraryAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
+    [self getAuthorization];
+//    [self.view setBackgroundColor:[UIColor whiteColor]];
     
-//    2.初始化UIImagePickerController
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+//    self.session = [AVCaptureSession new];
+//    [_session beginConfiguration];
+//    [self setupAVCapture];
+    [_captureSession beginConfiguration];
     
-//    3.设置picker的类型（只能设置一个）
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;//设置为此即打开相册
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;//设置为此即打开相机
+    [self addVideo];
+//    [self addAudio];
+    [self addPreviewLayer];
     
-    //    4.设置回调代理（用于选中图片或者拍照完成后回图片的各种信息）
-    //注意：此处需要遵循两个代理协议
-    //UIImagePickerControllerDelegate 用于选择照片或拍照后回调
-    //UINavigationControllerDelegate 在相机/相册选择中会有Nav进行跳转，此代理可以用于监听事件
-    
-    picker.delegate = self;
-    
-    //    5.弹出相机/相册（一定要使用modal形式才可弹出）
-//    [self presentViewController:picker animated:YES completion:nil];
-    [self presentViewController:picker animated:YES completion:NULL];
+    [_captureSession commitConfiguration];
+    [_captureSession startRunning];
     
 }
 
-//    6.实现代理监听相机/相册回调
-#pragma mark - UIImageViewPickerDelegate 相机/相册 回调
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+/*
+- (void)setupAVCapture
 {
-    //选择完成后dismiss选择控制器，同时处理选择的图
-    [picker dismissViewControllerAnimated:YES completion:^
-     {
-         //info中有选中图片的全部信息，根据需要去获取，此处获取的为原图
-         UIImage *choiceImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-         
-         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
-         {
-             //若为相机拍摄则保存到相册
-             UIImageWriteToSavedPhotosAlbum(choiceImage, NULL, NULL, NULL);
-         }
-     }];
+    // Get the default camera device
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if([device isTorchModeSupported:AVCaptureTorchModeOn]) {
+        [device lockForConfiguration:nil];
+        device.torchMode = AVCaptureTorchModeOn;//打开闪光灯
+        [device setTorchMode:AVCaptureTorchModeOn];
+        [device unlockForConfiguration];
+        [device setActiveVideoMinFrameDuration:CMTimeMake(1, 30)];
+    }
+    
+    // Create the AVCapture Session
+    _session = [AVCaptureSession new];
+    [_session beginConfiguration];
+    
+    // Create a AVCaptureDeviceInput with the camera device
+    NSError *error = nil;
+    NSString *title = [NSString stringWithFormat:@"Error %d", (int)[error code]];
+    AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        //[self teardownAVCapture];
+        return;
+    }
+    
+    if ([_session canAddInput:deviceInput])
+        [_session addInput:deviceInput];
+    
+    // AVCaptureVideoDataOutput
+    
+    AVCaptureVideoDataOutput *videoDataOutput = [AVCaptureVideoDataOutput new];
+    NSDictionary *rgbOutputSettings = [NSDictionary dictionaryWithObject:
+                                       [NSNumber numberWithInt:kCMPixelFormat_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+    [videoDataOutput setVideoSettings:rgbOutputSettings];
+    [videoDataOutput setAlwaysDiscardsLateVideoFrames:YES];
+    dispatch_queue_t videoDataOutputQueue = dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL);
+    [videoDataOutput setSampleBufferDelegate:self queue:videoDataOutputQueue];
+    
+    if ([_session canAddOutput:videoDataOutput])
+        [_session addOutput:videoDataOutput];
+    AVCaptureConnection *connection = [videoDataOutput connectionWithMediaType:AVMediaTypeVideo];
+//    [connection setVideoMinFrameDuration:CMTimeMake(1, 10)];
+    [connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+    
+    [_session commitConfiguration];
+    [_session startRunning];
 }
+*/
+
+- (void)addSession
+{
+    _captureSession = [[AVCaptureSession alloc] init];
+    
+    if ([_captureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
+        [_captureSession setSessionPreset:AVCaptureSessionPreset640x480];
+    }
+}
+
+
+- (void)addVideo
+{
+    
+    // 获取摄像头输入设备， 创建 AVCaptureDeviceInput 对象
+    _videoDevice = [self deviceWithMediaType:AVMediaTypeVideo preferringPosition:AVCaptureDevicePositionBack];
+    
+    [self addVideoInput];
+    [self addMovieOutput];
+}
+
+#pragma mark 获取摄像头-->前/后
+
+- (AVCaptureDevice *)deviceWithMediaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)position
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:mediaType];
+    AVCaptureDevice *captureDevice = devices.firstObject;
+    
+    for ( AVCaptureDevice *device in devices ) {
+        if ( device.position == position ) {
+            captureDevice = device;
+            break;
+        }
+    }
+    
+    return captureDevice;
+}
+
+- (void)addVideoInput
+{
+    NSError *videoError;
+    
+    _videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:_videoDevice error:&videoError];
+    if (videoError) {
+        NSLog(@"---- 取得摄像头设备时出错 ------ %@",videoError);
+        return;
+    }
+    
+    if ([_captureSession canAddInput:_videoInput]) {
+        [_captureSession addInput:_videoInput];
+    }
+}
+
+- (void)addMovieOutput
+{
+    _movieOutput = [[AVCaptureMovieFileOutput alloc] init];
+    
+    if ([_captureSession canAddOutput:_movieOutput]) {
+        [_captureSession addOutput:_movieOutput];
+        
+        AVCaptureConnection *captureConnection = [_movieOutput connectionWithMediaType:AVMediaTypeVideo];
+        if ([captureConnection isVideoStabilizationSupported]) {
+            captureConnection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
+        }
+        captureConnection.videoScaleAndCropFactor = captureConnection.videoMaxScaleAndCropFactor;
+    }
+    
+}
+
+
+- (void)addPreviewLayer
+{
+    _captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
+    _captureVideoPreviewLayer.frame = self.view.layer.bounds;
+    //    _captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    
+    _captureVideoPreviewLayer.connection.videoOrientation = [_movieOutput connectionWithMediaType:AVMediaTypeVideo].videoOrientation;
+    _captureVideoPreviewLayer.position = CGPointMake(self.view.bounds.size.width * 0.5, self.videoView.bounds.size.height * 0.5);
+    
+    CALayer *layer = self.videoView.layer;
+    layer.masksToBounds = true;
+    [self.view layoutIfNeeded];
+    [layer addSublayer:_captureVideoPreviewLayer];
+    
+}
+
+/*
+- (void)addAudio
+{
+    NSError *audioError;
+    _audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+    _audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:_audioDevice error:&audioError];
+    if (audioError) {
+        NSLog(@"取得录音设备时出错 ------ %@",audioError);
+        return;
+    }
+    if ([_captureSession canAddInput:_audioInput]) {
+        [_captureSession addInput:_audioInput];
+    }
+}
+*/
+
+//获取授权
+- (void)getAuthorization
+{
+    
+    //此处获取摄像头授权
+    switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo])
+    {
+        case AVAuthorizationStatusAuthorized:       //已授权，可使用    The client is authorized to access the hardware supporting a media type.
+        {
+            break;
+        }
+        case AVAuthorizationStatusNotDetermined:    //未进行授权选择     Indicates that the user has not yet made a choice regarding whether the client can access the hardware.
+        {
+            //则再次请求授权
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if(granted){    //用户授权成功
+                    return;
+                } else {        //用户拒绝授权
+                    return;
+                }
+            }];
+            break;
+        }
+        default:                                    //用户拒绝授权/未授权
+        {
+            break;
+        }
+    }
+    
+}
+
+/*
+- (void)initiateCaptureSessionForCamera:(CameraType)cameraType {
+    for (AVCaptureDevice *device in AVCaptureDevice.devices) if ([device hasMediaType:AVMediaTypeVideo]) {
+        switch (cameraType) {
+            case RearFacingCamera:  if ([device position] == AVCaptureDevicePositionBack)   _activeCamera = device; break;
+            case FrontFacingCamera: if ([device position] == AVCaptureDevicePositionFront)  _activeCamera = device; break;
+        }
+    }
+    
+    NSError *error          = nil;
+    BOOL deviceAvailability = YES;
+    
+    AVCaptureDeviceInput *cameraDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_activeCamera error:&error];
+    if (!error && [self.session canAddInput:cameraDeviceInput]) [self.session addInput:cameraDeviceInput];
+    else deviceAvailability = NO;
+    
+    //Report camera device availability
+//    if (self.delegate) [self.delegate cameraSessionManagerDidReportAvailability:deviceAvailability forCameraType:cameraType];
+}
+*/
+
+
 
 @end
