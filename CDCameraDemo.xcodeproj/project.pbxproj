@@ -29,6 +29,8 @@
 		2A6A3A9A1DD0636B003277D5 /* CameraStyleKitClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A8B1DD0636B003277D5 /* CameraStyleKitClass.m */; };
 		2A6A3A9B1DD0636B003277D5 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A8E1DD0636B003277D5 /* CaptureSessionManager.m */; };
 		2A6A3A9C1DD0636B003277D5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A901DD0636B003277D5 /* Constants.m */; };
+		2A6A3A9F1DD17E3F003277D5 /* Camera2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A9E1DD17E3F003277D5 /* Camera2ViewController.m */; };
+		2A6A3AA61DD1A8D7003277D5 /* Camera3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,10 @@
 		2A6A3A8E1DD0636B003277D5 /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
 		2A6A3A8F1DD0636B003277D5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		2A6A3A901DD0636B003277D5 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		2A6A3A9D1DD17E3F003277D5 /* Camera2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera2ViewController.h; sourceTree = "<group>"; };
+		2A6A3A9E1DD17E3F003277D5 /* Camera2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera2ViewController.m; sourceTree = "<group>"; };
+		2A6A3AA41DD1A8D7003277D5 /* Camera3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera3ViewController.h; sourceTree = "<group>"; };
+		2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera3ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +156,11 @@
 				2A6A3A751DD0636B003277D5 /* CustomizableCamera */,
 				2A6A3A6F1DD0253D003277D5 /* CameraViewController.h */,
 				2A6A3A701DD0253E003277D5 /* CameraViewController.m */,
+				2A6A3A9D1DD17E3F003277D5 /* Camera2ViewController.h */,
+				2A6A3A9E1DD17E3F003277D5 /* Camera2ViewController.m */,
+				2A6A3AA41DD1A8D7003277D5 /* Camera3ViewController.h */,
+				2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */,
+				2A6A3AA31DD1A54F003277D5 /* Manager */,
 				2A6A3A451DD021F6003277D5 /* Main.storyboard */,
 				2A6A3A481DD021F6003277D5 /* Assets.xcassets */,
 				2A6A3A4A1DD021F6003277D5 /* LaunchScreen.storyboard */,
@@ -252,6 +263,13 @@
 				2A6A3A901DD0636B003277D5 /* Constants.m */,
 			);
 			path = "Model Classes";
+			sourceTree = "<group>";
+		};
+		2A6A3AA31DD1A54F003277D5 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A6A3A911DD0636B003277D5 /* CameraSessionView.m in Sources */,
+				2A6A3AA61DD1A8D7003277D5 /* Camera3ViewController.m in Sources */,
 				2A6A3A941DD0636B003277D5 /* CameraFocalReticule.m in Sources */,
 				2A6A3A961DD0636B003277D5 /* CameraToggleButton.m in Sources */,
 				2A6A3A971DD0636B003277D5 /* LaunchCameraButton.m in Sources */,
@@ -398,6 +417,7 @@
 				2A6A3A741DD04B6A003277D5 /* Camera1ViewController.m in Sources */,
 				2A6A3A951DD0636B003277D5 /* CameraShutterButton.m in Sources */,
 				2A6A3A411DD021F6003277D5 /* AppDelegate.m in Sources */,
+				2A6A3A9F1DD17E3F003277D5 /* Camera2ViewController.m in Sources */,
 				2A6A3A3E1DD021F6003277D5 /* main.m in Sources */,
 				2A6A3A921DD0636B003277D5 /* CameraDismissButton.m in Sources */,
 				2A6A3A9B1DD0636B003277D5 /* CaptureSessionManager.m in Sources */,

@@ -179,9 +179,9 @@ typedef NS_ENUM(BOOL, CameraType) {
     //    _captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
     _captureVideoPreviewLayer.connection.videoOrientation = [_movieOutput connectionWithMediaType:AVMediaTypeVideo].videoOrientation;
-    _captureVideoPreviewLayer.position = CGPointMake(self.view.bounds.size.width * 0.5, self.videoView.bounds.size.height * 0.5);
+    _captureVideoPreviewLayer.position = CGPointMake(self.view.bounds.size.width * 0.5, self.view.bounds.size.height * 0.5);
     
-    CALayer *layer = self.videoView.layer;
+    CALayer *layer = self.view.layer;
     layer.masksToBounds = true;
     [self.view layoutIfNeeded];
     [layer addSublayer:_captureVideoPreviewLayer];
