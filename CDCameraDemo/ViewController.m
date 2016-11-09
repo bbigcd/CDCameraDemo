@@ -78,9 +78,9 @@ static NSString *const ID = @"cell";
     
 //    CameraViewController *vc = [[CameraViewController alloc] init];
     
-//    Camera1ViewController *vc = [[Camera1ViewController alloc] init];
+    Camera1ViewController *vc = [[Camera1ViewController alloc] init];
     
-    Camera2ViewController *vc = [[Camera2ViewController alloc] init];
+//    Camera2ViewController *vc = [[Camera2ViewController alloc] init];
     
 //    [self.navigationController pushViewController:vc animated:YES];
     [self presentViewController:vc animated:YES completion:nil];

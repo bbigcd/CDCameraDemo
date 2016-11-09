@@ -7,11 +7,13 @@
 //
 
 #import "Camera3ViewController.h"
-#import "CDCaptureSessionManager.h"
+#import "CaptureSessionManager.h"
 
 
 @interface Camera3ViewController ()
-//<CaptureSessionManagerDelegate>
+<CaptureSessionManagerDelegate>
+
+@property (nonatomic, strong) CaptureSessionManager *captureManager;
 
 @end
 
@@ -19,6 +21,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+}
+
+
+#pragma mark - Camera Session Manager Delegate Methods
+
+-(void)cameraSessionManagerDidCaptureImage{
+    
+}
+
+-(void)cameraSessionManagerFailedToCaptureImage {
+    
+}
+
+-(void)cameraSessionManagerDidReportAvailability:(BOOL)deviceAvailability forCameraType:(CameraType)cameraType {
+    
+}
+
+-(void)cameraSessionManagerDidReportDeviceStatistics:(CameraStatistics)deviceStatistics {
     
 }
 

@@ -8,7 +8,13 @@
 
 #import "Camera2ViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "PictureDetailViewController.h"
 #import <ImageIO/ImageIO.h>
+
+typedef NS_ENUM(BOOL, CameraType) {
+    FrontFacingCamera,
+    RearFacingCamera,
+};
 
 @interface Camera2ViewController ()
 //<AVCaptureFileOutputRecordingDelegate>
@@ -17,16 +23,18 @@
     AVCaptureDevice *_videoDevice;
     AVCaptureVideoPreviewLayer *_previewLayer;
     AVCaptureStillImageOutput *_stillImageOutput;
+    CameraType cameraBeingUsed;
 }
 @property (nonatomic, strong) UIImage *stillImage;
 @property (nonatomic, strong) NSData *stillImageData;
 
-@property (nonatomic, strong) UIButton *falshBtn;
-@property (nonatomic, strong) UIButton *toggleBtn;
-@property (nonatomic, strong) UIButton *shutterBtn;
-@property (nonatomic, strong) UIButton *dismissBtn;
-@property (nonatomic, strong) UIImageView *picturePreviewImageView;
-
+@property (nonatomic, strong) UIButton *falshBtn;//闪光灯
+@property (nonatomic, strong) UIButton *toggleBtn;//前后切换
+@property (nonatomic, strong) UIButton *shutterBtn;//拍照
+@property (nonatomic, strong) UIButton *dismissBtn;//退出拍照
+@property (nonatomic, strong) UIButton *focalReticuleBtn;//聚焦
+@property (nonatomic, strong) UIImageView *picturePreviewImageView;//预览
+@property (nonatomic, assign, getter = isTorchEnabled) BOOL enableTorch;
 @end
 
 @implementation Camera2ViewController
@@ -63,12 +71,51 @@
 }
 
 - (void)setupButtons{
-    self.falshBtn = [self initializeSimilarWithTitle:@"⚡︎" WithFrame:CGRectMake(10, 25 , 60, 60) WithSEL:@selector(dismissViewController)];
-    self.toggleBtn = [self initializeSimilarWithTitle:@"⌘" WithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 80, 25, 60, 60) WithSEL:@selector(dismissViewController)];
+    self.falshBtn = [self initializeSimilarWithTitle:@"⚡︎" WithFrame:CGRectMake(10, 25 , 60, 60) WithSEL:@selector(onTapFlashButton)];
+    self.toggleBtn = [self initializeSimilarWithTitle:@"⌘" WithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 80, 25, 60, 60) WithSEL:@selector(onTapToggleButton)];
     self.dismissBtn = [self initializeSimilarWithTitle:@"取消" WithFrame:CGRectMake(10, CGRectGetHeight(self.view.frame) - 80, 60, 60) WithSEL:@selector(dismissViewController)];
     self.shutterBtn = [self initializeSimilarWithTitle:@"拍照" WithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - 30, CGRectGetHeight(self.view.frame) - 80 , 60, 60) WithSEL:@selector(takePhotoManager)];
 }
 
+// 闪光灯切换
+- (void)onTapFlashButton{
+    _enableTorch = !self.isTorchEnabled;
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if ([device hasTorch] && [device hasFlash])
+    {
+        [device lockForConfiguration:nil];
+        if (_enableTorch) {
+            [device setTorchMode:AVCaptureTorchModeOn];
+        }else{
+            [device setTorchMode:AVCaptureTorchModeOff];
+        }
+        [device unlockForConfiguration];
+    }
+}
+
+// 切换摄像头
+- (void)onTapToggleButton{
+    BOOL isFrontFacingCamera = NO;
+    if (isFrontFacingCamera) {
+        cameraBeingUsed = FrontFacingCamera;
+    }else{
+        cameraBeingUsed = RearFacingCamera;
+    }
+    
+    // 后置
+    AVCaptureInput *currentCameraInput = [_captureSession.inputs objectAtIndex:0];
+    [_captureSession removeInput:currentCameraInput];
+    [self initiateCaptureSessionForCamera:cameraBeingUsed];
+    [self setupPreviewLayer];
+//    [self setupStillImageOutput];
+    
+    [_captureSession beginConfiguration];
+    
+    
+    [_captureSession commitConfiguration];
+    
+    // 前置
+}
 
 - (void)dismissViewController{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -89,11 +136,20 @@
     [self captureStillImage];
 }
 
+- (void)showPictureDetailController{
+    PictureDetailViewController *vc = [[PictureDetailViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 // 拍照成功预览
 - (void)setupPicturePreview{
     _picturePreviewImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 70, CGRectGetHeight(self.view.frame) - 90, 60, 80)];
     _picturePreviewImageView.backgroundColor = [UIColor cyanColor];
     _picturePreviewImageView.contentMode = UIViewContentModeScaleToFill;
+    _picturePreviewImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showPictureDetailController)];
+    [_picturePreviewImageView addGestureRecognizer:tap];
+    
     [self.view addSubview:_picturePreviewImageView];
 }
 
@@ -147,6 +203,79 @@
         [device unlockForConfiguration];
     }
 }
+
+- (void)initiateCaptureSessionForCamera:(CameraType)cameraType {
+    
+    //Iterate through devices and assign 'active camera' per parameter
+    for (AVCaptureDevice *device in AVCaptureDevice.devices) if ([device hasMediaType:AVMediaTypeVideo]) {
+        switch (cameraType) {
+            case RearFacingCamera:
+                if ([device position] == AVCaptureDevicePositionBack){
+                    _videoDevice = device;
+                }
+                break;
+            case FrontFacingCamera:
+                if ([device position] == AVCaptureDevicePositionFront){
+                    _videoDevice = device;
+                }
+                break;
+        }
+    }
+    
+    NSError *error          = nil;
+    BOOL deviceAvailability = YES;
+    
+    AVCaptureDeviceInput *cameraDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_videoDevice error:&error];
+    if (!error && [_captureSession canAddInput:cameraDeviceInput]){
+        [_captureSession addInput:cameraDeviceInput];
+    }else{
+        deviceAvailability = NO;
+    }
+    
+    
+}
+
+/*
+-(void)setupCaptureManager:(CameraType)camera {
+    
+    // remove existing input
+    AVCaptureInput* currentCameraInput = [_captureSession.inputs objectAtIndex:0];
+    [_captureSession removeInput:currentCameraInput];
+    
+    _captureManager = nil;
+    
+    //Create and configure 'CaptureSessionManager' object
+    _captureManager = [CaptureSessionManager new];
+    
+    // indicate that some changes will be made to the session
+    [_captureSession beginConfiguration];
+    
+    if (_captureManager) {
+        
+        //Configure
+        [_captureManager setDelegate:self];
+        [_captureManager initiateCaptureSessionForCamera:camera];
+        [_captureManager addStillImageOutput];
+        [_captureManager addVideoPreviewLayer];
+        [_captureSession commitConfiguration];
+        
+        //Preview Layer setup
+        CGRect layerRect = self.layer.bounds;
+        [_captureManager.previewLayer setBounds:layerRect];
+        [_captureManager.previewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect),CGRectGetMidY(layerRect))];
+        
+        //Apply animation effect to the camera's preview layer
+        CATransition *applicationLoadViewIn =[CATransition animation];
+        [applicationLoadViewIn setDuration:0.6];
+        [applicationLoadViewIn setType:kCATransitionReveal];
+        [applicationLoadViewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+        [_captureManager.previewLayer addAnimation:applicationLoadViewIn forKey:kCATransitionReveal];
+        
+        //Add to self.view's layer
+        [self.layer addSublayer:_captureManager.previewLayer];
+    }
+}
+*/
 
 #pragma mark - Helper Method(s)
 
@@ -229,6 +358,7 @@
     }
     [videoConnection setVideoOrientation:newOrientation];
 }
+
 
 - (AVCaptureDevice *)deviceWithModeiaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)positon{
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:mediaType];

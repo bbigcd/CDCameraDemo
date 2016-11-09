@@ -13,6 +13,7 @@
 @interface Camera1ViewController ()<CACameraSessionDelegate>
 
 @property (nonatomic, strong) CameraSessionView *cameraView;
+@property (nonatomic, strong) UIImageView *picturePreviewImageView;//预览
 
 @end
 
@@ -35,11 +36,30 @@
     [applicationLoadViewIn setType:kCATransitionReveal];
     [applicationLoadViewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
     [[_cameraView layer]addAnimation:applicationLoadViewIn forKey:kCATransitionReveal];
-    [_cameraView setTopBarColor:[UIColor colorWithHue:0.56 saturation:0.46 brightness:0.98 alpha:0.6]];
+    [_cameraView setTopBarColor:[UIColor darkGrayColor]];
     [_cameraView hideFlashButton]; //On iPad flash is not present, hence it wont appear.
     [_cameraView hideCameraToggleButton];
     [_cameraView hideDismissButton];
     [self.view addSubview:_cameraView];
+    
+    [self setupPicturePreview];
+}
+
+// 拍照成功预览
+- (void)setupPicturePreview{
+    _picturePreviewImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 70, CGRectGetHeight(self.view.frame) - 90, 60, 80)];
+    _picturePreviewImageView.backgroundColor = [UIColor cyanColor];
+    _picturePreviewImageView.contentMode = UIViewContentModeScaleToFill;
+    _picturePreviewImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showPictureDetailController)];
+    [_picturePreviewImageView addGestureRecognizer:tap];
+    
+    [self.view addSubview:_picturePreviewImageView];
+}
+
+
+- (void)showPictureDetailController{
+    NSLog(@"show picture");
 }
 
 #pragma mark --CACameraSessionDelegate--
@@ -48,7 +68,8 @@
     NSLog(@"CAPTURED IMAGE");
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 //    [self.cameraView removeFromSuperview];
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    _picturePreviewImageView.image = image;
     
 }
 
@@ -57,7 +78,7 @@
     //UIImage *image = [[UIImage alloc] initWithData:imageData];
     //UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     //[self.cameraView removeFromSuperview];
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
