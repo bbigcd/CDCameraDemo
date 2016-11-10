@@ -31,7 +31,7 @@ iCarouselDataSource>
     
     self.imagesArray = [[NSMutableArray alloc] init];
     
-    self.dataSource = @[[UIColor blueColor], [UIColor redColor], [UIColor cyanColor]];
+    self.dataSource = @[[UIColor blueColor], [UIColor redColor], [UIColor cyanColor], [UIColor greenColor], [UIColor yellowColor], [UIColor orangeColor]];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        [self getFirstPhoto];
@@ -56,7 +56,7 @@ iCarouselDataSource>
     _icarousel.dataSource = self;
     _icarousel.type = iCarouselTypeLinear;
     _icarousel.pagingEnabled  = YES;
-//    _icarousel.scrollEnabled = self.imagesArray.count >= 1;
+    _icarousel.scrollEnabled = self.dataSource.count > 1;
     [self.view addSubview:_icarousel];
 }
 

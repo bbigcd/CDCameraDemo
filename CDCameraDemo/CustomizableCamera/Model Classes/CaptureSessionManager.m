@@ -31,8 +31,16 @@
     //Iterate through devices and assign 'active camera' per parameter
     for (AVCaptureDevice *device in AVCaptureDevice.devices) if ([device hasMediaType:AVMediaTypeVideo]) {
         switch (cameraType) {
-            case RearFacingCamera:  if ([device position] == AVCaptureDevicePositionBack)   _activeCamera = device; break;
-            case FrontFacingCamera: if ([device position] == AVCaptureDevicePositionFront)  _activeCamera = device; break;
+            case RearFacingCamera:
+                if ([device position] == AVCaptureDevicePositionBack){
+                    _activeCamera = device;
+                }
+                break;
+            case FrontFacingCamera:
+                if ([device position] == AVCaptureDevicePositionFront){
+                    _activeCamera = device;
+                }
+                break;
         }
     }
     
@@ -40,11 +48,15 @@
     BOOL deviceAvailability = YES;
     
     AVCaptureDeviceInput *cameraDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_activeCamera error:&error];
-    if (!error && [[self captureSession] canAddInput:cameraDeviceInput]) [[self captureSession] addInput:cameraDeviceInput];
-    else deviceAvailability = NO;
-    
+    if (!error && [[self captureSession] canAddInput:cameraDeviceInput]) {
+        [[self captureSession] addInput:cameraDeviceInput];
+    }else{
+        deviceAvailability = NO;
+    }
     //Report camera device availability
-    if (self.delegate) [self.delegate cameraSessionManagerDidReportAvailability:deviceAvailability forCameraType:cameraType];
+    if (self.delegate) {
+        [self.delegate cameraSessionManagerDidReportAvailability:deviceAvailability forCameraType:cameraType];
+    }
     
 //    [self initiateStatisticsReportWithInterval:.125];
 }
@@ -107,10 +119,10 @@
     
     //Turn off the flash if on
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if ([device hasTorch])
+    if ([device hasFlash])
     {
         [device lockForConfiguration:nil];
-        [device setTorchMode:AVCaptureTorchModeOff];
+        [device setFlashMode:AVCaptureFlashModeOff];
         [device unlockForConfiguration];
     }
 }
@@ -123,8 +135,11 @@
     if ([device hasTorch] && [device hasFlash])
     {
         [device lockForConfiguration:nil];
-        if (enableTorch) { [device setTorchMode:AVCaptureTorchModeOn]; }
-        else { [device setTorchMode:AVCaptureTorchModeOff]; }
+        if (enableTorch) {
+            [device setFlashMode:AVCaptureFlashModeOn];
+        }else {
+            [device setFlashMode:AVCaptureFlashModeOff];
+        }
         [device unlockForConfiguration];
     }
 }

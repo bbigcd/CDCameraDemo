@@ -33,7 +33,7 @@
 @property (nonatomic, strong) NSData *stillImageData;
 
 //Primative Variables
-@property (nonatomic,assign,getter=isTorchEnabled) BOOL enableTorch;
+@property (nonatomic, assign, getter=isTorchEnabled) BOOL enableTorch;
 
 //API Methods
 - (void)addStillImageOutput;

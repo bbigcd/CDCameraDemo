@@ -85,9 +85,9 @@ typedef NS_ENUM(BOOL, CameraType) {
     {
         [device lockForConfiguration:nil];
         if (_enableTorch) {
-            [device setTorchMode:AVCaptureTorchModeOn];
+            [device setFlashMode:AVCaptureFlashModeAuto];
         }else{
-            [device setTorchMode:AVCaptureTorchModeOff];
+            [device setFlashMode:AVCaptureFlashModeOff];
         }
         [device unlockForConfiguration];
     }
@@ -307,10 +307,10 @@ typedef NS_ENUM(BOOL, CameraType) {
     
     //Turn off the flash if on
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if ([device hasTorch])
+    if ([device hasFlash])
     {
         [device lockForConfiguration:nil];
-        [device setTorchMode:AVCaptureTorchModeOff];
+        [device setFlashMode:AVCaptureFlashModeOff];
         [device unlockForConfiguration];
     }
 }
