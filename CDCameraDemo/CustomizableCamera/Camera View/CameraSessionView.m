@@ -36,25 +36,21 @@
 @property (nonatomic, strong) CameraShutterButton *cameraShutter;
 @property (nonatomic, strong) CameraToggleButton *cameraToggle;
 @property (nonatomic, strong) CameraFlashButton *cameraFlash;
-@property (nonatomic, strong) CameraDismissButton *cameraDismiss;
+//@property (nonatomic, strong) CameraDismissButton *cameraDismiss;
 @property (nonatomic, strong) CameraFocalReticule *focalReticule;
 @property (nonatomic, strong) UIView *topBarView;
-
-//Temporary/Diagnostic properties
-@property (nonatomic, strong) UILabel *ISOLabel, *apertureLabel, *shutterSpeedLabel;
 
 @end
 
 @implementation CameraSessionView
 
--(void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect {
     if (self) {
         _animationInProgress = NO;
         [self setupCaptureManager:RearFacingCamera];
         cameraBeingUsed = RearFacingCamera;
         [self composeInterface];
-        
-        [[_captureManager captureSession] startRunning];
+        [_captureManager.captureSession startRunning];
     }
 }
 
@@ -72,43 +68,43 @@
 
 -(void)setupCaptureManager:(CameraType)camera {
     
-    // remove existing input
+    // 删除现有的输入设备
     AVCaptureInput* currentCameraInput = [self.captureManager.captureSession.inputs objectAtIndex:0];
     [self.captureManager.captureSession removeInput:currentCameraInput];
     
     _captureManager = nil;
     
-    //Create and configure 'CaptureSessionManager' object
+    // 创建被配置'CaptureSessionManager'
     _captureManager = [CaptureSessionManager new];
     
-    // indicate that some changes will be made to the session
+    // 开始配置session
     [self.captureManager.captureSession beginConfiguration];
     
     if (_captureManager) {
         
-        //Configure
         [_captureManager setDelegate:self];
         [_captureManager initiateCaptureSessionForCamera:camera];
         [_captureManager addStillImageOutput];
         [_captureManager addVideoPreviewLayer];
         [self.captureManager.captureSession commitConfiguration];
         
-        //Preview Layer setup
+        // 设置实时预览view
         CGRect layerRect = self.layer.bounds;
         [_captureManager.previewLayer setBounds:layerRect];
         [_captureManager.previewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect),CGRectGetMidY(layerRect))];
         
-        //Apply animation effect to the camera's preview layer
+        // 相机预览层layer动效
         CATransition *applicationLoadViewIn =[CATransition animation];
         [applicationLoadViewIn setDuration:0.6];
         [applicationLoadViewIn setType:kCATransitionReveal];
         [applicationLoadViewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
         [_captureManager.previewLayer addAnimation:applicationLoadViewIn forKey:kCATransitionReveal];
         
-        //Add to self.view's layer
+        // 展示预览层
         [self.layer addSublayer:_captureManager.previewLayer];
     }
 }
+
 
 -(void)composeInterface {
     
@@ -139,7 +135,7 @@
         
         //Button Visual attribution
         _cameraShutter.frame = (CGRect){0,0, shutterButtonSize};
-        _cameraShutter.center = CGPointMake(self.frame.size.width/2, self.frame.size.height*0.875);
+        _cameraShutter.center = CGPointMake(self.frame.size.width/2, self.frame.size.height - 45);
         _cameraShutter.tag = ShutterButtonTag;
         _cameraShutter.backgroundColor = [UIColor clearColor];
         
@@ -152,37 +148,35 @@
     _topBarView = [UIView new];
     
     if (_topBarView) {
-        
+    
         //Setup visual attribution for bar
         _topBarView.frame  = (CGRect){0,0, topBarSize};
         _topBarView.backgroundColor = [UIColor colorWithRed: 0.176 green: 0.478 blue: 0.529 alpha: 0.64];
-        [self addSubview:_topBarView];
+//        [self addSubview:_topBarView];
         
         //Add the flash button
         _cameraFlash = [CameraFlashButton new];
         if (_cameraFlash) {
             _cameraFlash.frame = (CGRect){0,0, barButtonItemSize};
-            _cameraFlash.center = CGPointMake(_topBarView.center.x * 0.80, _topBarView.center.y);
+            _cameraFlash.center = CGPointMake(40, 45);
             _cameraFlash.tag = FlashButtonTag;
-            if ( UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad ) [_topBarView addSubview:_cameraFlash];
+            [_cameraFlash addTarget:self action:@selector(onTapFlashButton) forControlEvents:UIControlEventTouchUpInside];
+            if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+            {
+                [self addSubview:_cameraFlash];
+            }
         }
         
         //Add the camera toggle button
         _cameraToggle = [CameraToggleButton new];
         if (_cameraToggle) {
             _cameraToggle.frame = (CGRect){0,0, barButtonItemSize};
-            _cameraToggle.center = CGPointMake(_topBarView.center.x * 1.20, _topBarView.center.y);
+//            _cameraToggle.center = CGPointMake(_topBarView.center.x * 1.20, _topBarView.center.y);
+            _cameraToggle.center = CGPointMake(CGRectGetWidth(self.frame) - 40, 45);
             _cameraToggle.tag = ToggleButtonTag;
-            [_topBarView addSubview:_cameraToggle];
-        }
-        
-        //Add the camera dismiss button
-        _cameraDismiss = [CameraDismissButton new];
-        if (_cameraDismiss) {
-            _cameraDismiss.frame = (CGRect){0,0, barButtonItemSize};
-            _cameraDismiss.center = CGPointMake(20, _topBarView.center.y);
-            _cameraDismiss.tag = DismissButtonTag;
-            [_topBarView addSubview:_cameraDismiss];
+//            [_topBarView addSubview:_cameraToggle];
+            [_cameraToggle addTarget:self action:@selector(onTapToggleButton) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_cameraToggle];
         }
         
         //Attribute and configure all buttons in the bar's subview
@@ -211,7 +205,7 @@
 
 #pragma mark - User Interaction
 
--(void)inputManager:(id)sender {
+- (void)inputManager:(id)sender {
     
     //If animation is in progress, ignore input
     if (_animationInProgress) return;
@@ -335,7 +329,7 @@
                 _cameraToggle.transform = transform;
                 _cameraToggle.center = CGPointMake(_topBarView.center.x * 1.20, _topBarView.center.y);
                 
-                _cameraDismiss.center = CGPointMake(20, _topBarView.center.y);
+//                _cameraDismiss.center = CGPointMake(20, _topBarView.center.y);
             }];
         }
             break;
@@ -351,7 +345,7 @@
                 _cameraToggle.transform = transform;
                 _cameraToggle.center = CGPointMake(_topBarView.center.x * 1.60, _topBarView.center.y);
                 
-                _cameraDismiss.center = CGPointMake(_topBarView.center.x * 0.25, _topBarView.center.y);
+//                _cameraDismiss.center = CGPointMake(_topBarView.center.x * 0.25, _topBarView.center.y);
             }];
         }
             break;
@@ -367,7 +361,7 @@
                 _cameraToggle.transform = transform;
                 _cameraToggle.center = CGPointMake(_topBarView.center.x * 0.75, _topBarView.center.y);
                 
-                _cameraDismiss.center = CGPointMake(_topBarView.center.x * 1.75, _topBarView.center.y);
+//                _cameraDismiss.center = CGPointMake(_topBarView.center.x * 1.75, _topBarView.center.y);
             }];
         }
             break;
@@ -473,7 +467,7 @@
 
 - (void)hideDismissButton
 {
-    _cameraDismiss.hidden = YES;
+//    _cameraDismiss.hidden = YES;
 }
 
 - (void)dealloc

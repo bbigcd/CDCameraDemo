@@ -25,5 +25,5 @@
 - (void)hideFlashButton;
 - (void)hideCameraToggleButton;
 - (void)hideDismissButton;
-
+- (void)onTapShutterButton;
 @end

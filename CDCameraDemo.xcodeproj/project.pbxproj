@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A31C2301DD458260090DA01 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A31C22F1DD458260090DA01 /* iCarousel.m */; };
 		2A6A3A3E1DD021F6003277D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A3D1DD021F6003277D5 /* main.m */; };
 		2A6A3A411DD021F6003277D5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A401DD021F6003277D5 /* AppDelegate.m */; };
 		2A6A3A441DD021F6003277D5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A431DD021F6003277D5 /* ViewController.m */; };
@@ -32,6 +33,7 @@
 		2A6A3A9F1DD17E3F003277D5 /* Camera2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A9E1DD17E3F003277D5 /* Camera2ViewController.m */; };
 		2A6A3AA61DD1A8D7003277D5 /* Camera3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */; };
 		2A6A3AAC1DD33824003277D5 /* PictureDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3AAB1DD33824003277D5 /* PictureDetailViewController.m */; };
+		2A6A3AAF1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3AAE1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A31C22E1DD458260090DA01 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		2A31C22F1DD458260090DA01 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		2A6A3A391DD021F6003277D5 /* CDCameraDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDCameraDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A6A3A3D1DD021F6003277D5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A6A3A3F1DD021F6003277D5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 		2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera3ViewController.m; sourceTree = "<group>"; };
 		2A6A3AAA1DD33824003277D5 /* PictureDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureDetailViewController.h; sourceTree = "<group>"; };
 		2A6A3AAB1DD33824003277D5 /* PictureDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureDetailViewController.m; sourceTree = "<group>"; };
+		2A6A3AAD1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CDAssetsLibrary.h"; sourceTree = "<group>"; };
+		2A6A3AAE1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CDAssetsLibrary.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,13 +162,17 @@
 				2A6A3A431DD021F6003277D5 /* ViewController.m */,
 				2A6A3A721DD04B6A003277D5 /* Camera1ViewController.h */,
 				2A6A3A731DD04B6A003277D5 /* Camera1ViewController.m */,
+				2A6A3AAA1DD33824003277D5 /* PictureDetailViewController.h */,
+				2A6A3AAB1DD33824003277D5 /* PictureDetailViewController.m */,
+				2A6A3AAD1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.h */,
+				2A6A3AAE1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m */,
+				2A31C22E1DD458260090DA01 /* iCarousel.h */,
+				2A31C22F1DD458260090DA01 /* iCarousel.m */,
 				2A6A3A751DD0636B003277D5 /* CustomizableCamera */,
 				2A6A3A6F1DD0253D003277D5 /* CameraViewController.h */,
 				2A6A3A701DD0253E003277D5 /* CameraViewController.m */,
 				2A6A3A9D1DD17E3F003277D5 /* Camera2ViewController.h */,
 				2A6A3A9E1DD17E3F003277D5 /* Camera2ViewController.m */,
-				2A6A3AAA1DD33824003277D5 /* PictureDetailViewController.h */,
-				2A6A3AAB1DD33824003277D5 /* PictureDetailViewController.m */,
 				2A6A3AA41DD1A8D7003277D5 /* Camera3ViewController.h */,
 				2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */,
 				2A6A3AA31DD1A54F003277D5 /* Manager */,
@@ -410,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A6A3A911DD0636B003277D5 /* CameraSessionView.m in Sources */,
+				2A31C2301DD458260090DA01 /* iCarousel.m in Sources */,
 				2A6A3AA61DD1A8D7003277D5 /* Camera3ViewController.m in Sources */,
 				2A6A3A941DD0636B003277D5 /* CameraFocalReticule.m in Sources */,
 				2A6A3A961DD0636B003277D5 /* CameraToggleButton.m in Sources */,
@@ -417,6 +428,7 @@
 				2A6A3A931DD0636B003277D5 /* CameraFlashButton.m in Sources */,
 				2A6A3A9C1DD0636B003277D5 /* Constants.m in Sources */,
 				2A6A3A441DD021F6003277D5 /* ViewController.m in Sources */,
+				2A6A3AAF1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m in Sources */,
 				2A6A3A9A1DD0636B003277D5 /* CameraStyleKitClass.m in Sources */,
 				2A6A3A711DD0253E003277D5 /* CameraViewController.m in Sources */,
 				2A6A3A741DD04B6A003277D5 /* Camera1ViewController.m in Sources */,
@@ -652,6 +664,7 @@
 				2A6A3A681DD021F6003277D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2A6A3A691DD021F6003277D5 /* Build configuration list for PBXNativeTarget "CDCameraDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -660,6 +673,7 @@
 				2A6A3A6B1DD021F6003277D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2A6A3A6C1DD021F6003277D5 /* Build configuration list for PBXNativeTarget "CDCameraDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -668,6 +682,7 @@
 				2A6A3A6E1DD021F6003277D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
