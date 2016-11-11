@@ -25,6 +25,12 @@ typedef NS_ENUM(NSInteger, BarButtonTag) {
     DismissButtonTag,
 };
 
+typedef NS_ENUM(NSInteger, FlashCurrentState){
+    FlashCurrentStateOn,
+    FlashCurrentStateOff,
+    FlashCurrentStateAuto,
+};
+
 typedef struct {
     CGFloat ISO;
     CGFloat exposureDuration;

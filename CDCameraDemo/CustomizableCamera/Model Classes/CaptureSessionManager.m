@@ -127,6 +127,32 @@
     }
 }
 
+- (void)setCameraFlashModel:(FlashCurrentState)flashCurrentState{
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if ([device hasTorch] && [device hasFlash])
+    {
+        [device lockForConfiguration:nil];
+        switch (flashCurrentState) {
+            case FlashCurrentStateOn:
+                [device setFlashMode:AVCaptureFlashModeOn];
+                NSLog(@"闪光灯打开");
+                break;
+            case FlashCurrentStateOff:
+                [device setFlashMode:AVCaptureFlashModeOff];
+                NSLog(@"闪光灯关闭");
+                break;
+            case FlashCurrentStateAuto:
+                [device setFlashMode:AVCaptureFlashModeAuto];
+                NSLog(@"闪光灯自动");
+                break;
+            default:
+                break;
+        }
+        
+        [device unlockForConfiguration];
+    }
+}
+
 - (void)setEnableTorch:(BOOL)enableTorch
 {
     _enableTorch = enableTorch;
@@ -192,8 +218,7 @@
 #pragma mark - Cleanup Functions
 
 // stop the camera, otherwise it will lead to memory crashes
-- (void)stop
-{
+- (void)stop{
     [self.captureSession stopRunning];
     
     if(self.captureSession.inputs.count > 0) {

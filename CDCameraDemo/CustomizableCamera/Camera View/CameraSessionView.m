@@ -106,7 +106,7 @@
 }
 
 
--(void)composeInterface {
+-(void)composeInterface{
     
     //Adding notifier for orientation changes
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
@@ -205,7 +205,7 @@
 
 #pragma mark - User Interaction
 
-- (void)inputManager:(id)sender {
+- (void)inputManager:(id)sender{
     
     //If animation is in progress, ignore input
     if (_animationInProgress) return;
@@ -234,6 +234,7 @@
 - (void)onTapFlashButton {
     BOOL enable = !self.captureManager.isTorchEnabled;
     self.captureManager.enableTorch = enable;
+    [_captureManager setCameraFlashModel:FlashCurrentStateAuto];
 }
 
 - (void)onTapToggleButton {

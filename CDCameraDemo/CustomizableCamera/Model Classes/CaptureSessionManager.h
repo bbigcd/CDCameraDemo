@@ -39,6 +39,7 @@
 - (void)addStillImageOutput;
 - (void)captureStillImage;
 - (void)addVideoPreviewLayer;
+- (void)setCameraFlashModel:(FlashCurrentState)flashCurrentState;
 - (void)initiateCaptureSessionForCamera:(CameraType)cameraType;
 - (void)stop;
 
