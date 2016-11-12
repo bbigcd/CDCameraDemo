@@ -7,33 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A31C2301DD458260090DA01 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A31C22F1DD458260090DA01 /* iCarousel.m */; };
 		2A6A3A3E1DD021F6003277D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A3D1DD021F6003277D5 /* main.m */; };
 		2A6A3A411DD021F6003277D5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A401DD021F6003277D5 /* AppDelegate.m */; };
 		2A6A3A441DD021F6003277D5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A431DD021F6003277D5 /* ViewController.m */; };
-		2A6A3A471DD021F6003277D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6A3A451DD021F6003277D5 /* Main.storyboard */; };
 		2A6A3A491DD021F6003277D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A6A3A481DD021F6003277D5 /* Assets.xcassets */; };
 		2A6A3A4C1DD021F6003277D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6A3A4A1DD021F6003277D5 /* LaunchScreen.storyboard */; };
 		2A6A3A571DD021F6003277D5 /* CDCameraDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A561DD021F6003277D5 /* CDCameraDemoTests.m */; };
 		2A6A3A621DD021F6003277D5 /* CDCameraDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A611DD021F6003277D5 /* CDCameraDemoUITests.m */; };
-		2A6A3A711DD0253E003277D5 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A701DD0253E003277D5 /* CameraViewController.m */; };
-		2A6A3A741DD04B6A003277D5 /* Camera1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A731DD04B6A003277D5 /* Camera1ViewController.m */; };
-		2A6A3A911DD0636B003277D5 /* CameraSessionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A781DD0636B003277D5 /* CameraSessionView.m */; };
-		2A6A3A921DD0636B003277D5 /* CameraDismissButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A7C1DD0636B003277D5 /* CameraDismissButton.m */; };
-		2A6A3A931DD0636B003277D5 /* CameraFlashButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A7E1DD0636B003277D5 /* CameraFlashButton.m */; };
-		2A6A3A941DD0636B003277D5 /* CameraFocalReticule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A801DD0636B003277D5 /* CameraFocalReticule.m */; };
-		2A6A3A951DD0636B003277D5 /* CameraShutterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A821DD0636B003277D5 /* CameraShutterButton.m */; };
-		2A6A3A961DD0636B003277D5 /* CameraToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A841DD0636B003277D5 /* CameraToggleButton.m */; };
-		2A6A3A971DD0636B003277D5 /* LaunchCameraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A861DD0636B003277D5 /* LaunchCameraButton.m */; };
-		2A6A3A981DD0636B003277D5 /* Cool Camera Mockup.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 2A6A3A871DD0636B003277D5 /* Cool Camera Mockup.sketch */; };
-		2A6A3A991DD0636B003277D5 /* PaintCodeFile.pcvd in Resources */ = {isa = PBXBuildFile; fileRef = 2A6A3A881DD0636B003277D5 /* PaintCodeFile.pcvd */; };
-		2A6A3A9A1DD0636B003277D5 /* CameraStyleKitClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A8B1DD0636B003277D5 /* CameraStyleKitClass.m */; };
-		2A6A3A9B1DD0636B003277D5 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A8E1DD0636B003277D5 /* CaptureSessionManager.m */; };
-		2A6A3A9C1DD0636B003277D5 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A901DD0636B003277D5 /* Constants.m */; };
-		2A6A3A9F1DD17E3F003277D5 /* Camera2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3A9E1DD17E3F003277D5 /* Camera2ViewController.m */; };
-		2A6A3AA61DD1A8D7003277D5 /* Camera3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */; };
-		2A6A3AAC1DD33824003277D5 /* PictureDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3AAB1DD33824003277D5 /* PictureDetailViewController.m */; };
-		2A6A3AAF1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A3AAE1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m */; };
+		543C61451DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C612D1DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.m */; };
+		543C61461DD6B8FE007C76AC /* PhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C61301DD6B8FE007C76AC /* PhotoDetailViewController.m */; };
+		543C61471DD6B8FE007C76AC /* TakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C61321DD6B8FE007C76AC /* TakePhotoViewController.m */; };
+		543C61481DD6B8FE007C76AC /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C61341DD6B8FE007C76AC /* iCarousel.m */; };
+		543C61491DD6B8FE007C76AC /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C61371DD6B8FE007C76AC /* CaptureSessionManager.m */; };
+		543C614A1DD6B8FE007C76AC /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C61391DD6B8FE007C76AC /* Constants.m */; };
+		543C614B1DD6B8FE007C76AC /* CameraFlashButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C613C1DD6B8FE007C76AC /* CameraFlashButton.m */; };
+		543C614C1DD6B8FE007C76AC /* CameraFocalReticule.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C613E1DD6B8FE007C76AC /* CameraFocalReticule.m */; };
+		543C614D1DD6B8FE007C76AC /* CameraSessionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C61401DD6B8FE007C76AC /* CameraSessionView.m */; };
+		543C614E1DD6B8FE007C76AC /* CameraShutterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C61421DD6B8FE007C76AC /* CameraShutterButton.m */; };
+		543C614F1DD6B8FE007C76AC /* CameraToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C61441DD6B8FE007C76AC /* CameraToggleButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,15 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2A31C22E1DD458260090DA01 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
-		2A31C22F1DD458260090DA01 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		2A6A3A391DD021F6003277D5 /* CDCameraDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDCameraDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A6A3A3D1DD021F6003277D5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A6A3A3F1DD021F6003277D5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2A6A3A401DD021F6003277D5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2A6A3A421DD021F6003277D5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2A6A3A431DD021F6003277D5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		2A6A3A461DD021F6003277D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A6A3A481DD021F6003277D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A6A3A4B1DD021F6003277D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A6A3A4D1DD021F6003277D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,40 +60,28 @@
 		2A6A3A5D1DD021F6003277D5 /* CDCameraDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CDCameraDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A6A3A611DD021F6003277D5 /* CDCameraDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CDCameraDemoUITests.m; sourceTree = "<group>"; };
 		2A6A3A631DD021F6003277D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A6A3A6F1DD0253D003277D5 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
-		2A6A3A701DD0253E003277D5 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
-		2A6A3A721DD04B6A003277D5 /* Camera1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera1ViewController.h; sourceTree = "<group>"; };
-		2A6A3A731DD04B6A003277D5 /* Camera1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera1ViewController.m; sourceTree = "<group>"; };
-		2A6A3A771DD0636B003277D5 /* CameraSessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSessionView.h; sourceTree = "<group>"; };
-		2A6A3A781DD0636B003277D5 /* CameraSessionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraSessionView.m; sourceTree = "<group>"; };
-		2A6A3A7B1DD0636B003277D5 /* CameraDismissButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraDismissButton.h; sourceTree = "<group>"; };
-		2A6A3A7C1DD0636B003277D5 /* CameraDismissButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraDismissButton.m; sourceTree = "<group>"; };
-		2A6A3A7D1DD0636B003277D5 /* CameraFlashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFlashButton.h; sourceTree = "<group>"; };
-		2A6A3A7E1DD0636B003277D5 /* CameraFlashButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFlashButton.m; sourceTree = "<group>"; };
-		2A6A3A7F1DD0636B003277D5 /* CameraFocalReticule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFocalReticule.h; sourceTree = "<group>"; };
-		2A6A3A801DD0636B003277D5 /* CameraFocalReticule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFocalReticule.m; sourceTree = "<group>"; };
-		2A6A3A811DD0636B003277D5 /* CameraShutterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraShutterButton.h; sourceTree = "<group>"; };
-		2A6A3A821DD0636B003277D5 /* CameraShutterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraShutterButton.m; sourceTree = "<group>"; };
-		2A6A3A831DD0636B003277D5 /* CameraToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraToggleButton.h; sourceTree = "<group>"; };
-		2A6A3A841DD0636B003277D5 /* CameraToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraToggleButton.m; sourceTree = "<group>"; };
-		2A6A3A851DD0636B003277D5 /* LaunchCameraButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchCameraButton.h; sourceTree = "<group>"; };
-		2A6A3A861DD0636B003277D5 /* LaunchCameraButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchCameraButton.m; sourceTree = "<group>"; };
-		2A6A3A871DD0636B003277D5 /* Cool Camera Mockup.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cool Camera Mockup.sketch"; sourceTree = "<group>"; };
-		2A6A3A881DD0636B003277D5 /* PaintCodeFile.pcvd */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = PaintCodeFile.pcvd; sourceTree = "<group>"; };
-		2A6A3A8A1DD0636B003277D5 /* CameraStyleKitClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraStyleKitClass.h; sourceTree = "<group>"; };
-		2A6A3A8B1DD0636B003277D5 /* CameraStyleKitClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraStyleKitClass.m; sourceTree = "<group>"; };
-		2A6A3A8D1DD0636B003277D5 /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
-		2A6A3A8E1DD0636B003277D5 /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
-		2A6A3A8F1DD0636B003277D5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		2A6A3A901DD0636B003277D5 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		2A6A3A9D1DD17E3F003277D5 /* Camera2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera2ViewController.h; sourceTree = "<group>"; };
-		2A6A3A9E1DD17E3F003277D5 /* Camera2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera2ViewController.m; sourceTree = "<group>"; };
-		2A6A3AA41DD1A8D7003277D5 /* Camera3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera3ViewController.h; sourceTree = "<group>"; };
-		2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera3ViewController.m; sourceTree = "<group>"; };
-		2A6A3AAA1DD33824003277D5 /* PictureDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureDetailViewController.h; sourceTree = "<group>"; };
-		2A6A3AAB1DD33824003277D5 /* PictureDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureDetailViewController.m; sourceTree = "<group>"; };
-		2A6A3AAD1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CDAssetsLibrary.h"; sourceTree = "<group>"; };
-		2A6A3AAE1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CDAssetsLibrary.m"; sourceTree = "<group>"; };
+		543C612C1DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CDAssetsLibrary.h"; sourceTree = "<group>"; };
+		543C612D1DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CDAssetsLibrary.m"; sourceTree = "<group>"; };
+		543C612F1DD6B8FE007C76AC /* PhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoDetailViewController.h; sourceTree = "<group>"; };
+		543C61301DD6B8FE007C76AC /* PhotoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoDetailViewController.m; sourceTree = "<group>"; };
+		543C61311DD6B8FE007C76AC /* TakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TakePhotoViewController.h; sourceTree = "<group>"; };
+		543C61321DD6B8FE007C76AC /* TakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TakePhotoViewController.m; sourceTree = "<group>"; };
+		543C61331DD6B8FE007C76AC /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		543C61341DD6B8FE007C76AC /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		543C61361DD6B8FE007C76AC /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
+		543C61371DD6B8FE007C76AC /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
+		543C61381DD6B8FE007C76AC /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		543C61391DD6B8FE007C76AC /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		543C613B1DD6B8FE007C76AC /* CameraFlashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFlashButton.h; sourceTree = "<group>"; };
+		543C613C1DD6B8FE007C76AC /* CameraFlashButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFlashButton.m; sourceTree = "<group>"; };
+		543C613D1DD6B8FE007C76AC /* CameraFocalReticule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFocalReticule.h; sourceTree = "<group>"; };
+		543C613E1DD6B8FE007C76AC /* CameraFocalReticule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFocalReticule.m; sourceTree = "<group>"; };
+		543C613F1DD6B8FE007C76AC /* CameraSessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSessionView.h; sourceTree = "<group>"; };
+		543C61401DD6B8FE007C76AC /* CameraSessionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraSessionView.m; sourceTree = "<group>"; };
+		543C61411DD6B8FE007C76AC /* CameraShutterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraShutterButton.h; sourceTree = "<group>"; };
+		543C61421DD6B8FE007C76AC /* CameraShutterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraShutterButton.m; sourceTree = "<group>"; };
+		543C61431DD6B8FE007C76AC /* CameraToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraToggleButton.h; sourceTree = "<group>"; };
+		543C61441DD6B8FE007C76AC /* CameraToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraToggleButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,23 +136,7 @@
 				2A6A3A401DD021F6003277D5 /* AppDelegate.m */,
 				2A6A3A421DD021F6003277D5 /* ViewController.h */,
 				2A6A3A431DD021F6003277D5 /* ViewController.m */,
-				2A6A3A721DD04B6A003277D5 /* Camera1ViewController.h */,
-				2A6A3A731DD04B6A003277D5 /* Camera1ViewController.m */,
-				2A6A3AAA1DD33824003277D5 /* PictureDetailViewController.h */,
-				2A6A3AAB1DD33824003277D5 /* PictureDetailViewController.m */,
-				2A6A3AAD1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.h */,
-				2A6A3AAE1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m */,
-				2A31C22E1DD458260090DA01 /* iCarousel.h */,
-				2A31C22F1DD458260090DA01 /* iCarousel.m */,
-				2A6A3A751DD0636B003277D5 /* CustomizableCamera */,
-				2A6A3A6F1DD0253D003277D5 /* CameraViewController.h */,
-				2A6A3A701DD0253E003277D5 /* CameraViewController.m */,
-				2A6A3A9D1DD17E3F003277D5 /* Camera2ViewController.h */,
-				2A6A3A9E1DD17E3F003277D5 /* Camera2ViewController.m */,
-				2A6A3AA41DD1A8D7003277D5 /* Camera3ViewController.h */,
-				2A6A3AA51DD1A8D7003277D5 /* Camera3ViewController.m */,
-				2A6A3AA31DD1A54F003277D5 /* Manager */,
-				2A6A3A451DD021F6003277D5 /* Main.storyboard */,
+				543C612B1DD6B8FE007C76AC /* FinalVersion */,
 				2A6A3A481DD021F6003277D5 /* Assets.xcassets */,
 				2A6A3A4A1DD021F6003277D5 /* LaunchScreen.storyboard */,
 				2A6A3A4D1DD021F6003277D5 /* Info.plist */,
@@ -211,80 +171,57 @@
 			path = CDCameraDemoUITests;
 			sourceTree = "<group>";
 		};
-		2A6A3A751DD0636B003277D5 /* CustomizableCamera */ = {
+		543C612B1DD6B8FE007C76AC /* FinalVersion */ = {
 			isa = PBXGroup;
 			children = (
-				2A6A3A761DD0636B003277D5 /* Camera View */,
-				2A6A3A791DD0636B003277D5 /* Graphical Assets */,
-				2A6A3A8C1DD0636B003277D5 /* Model Classes */,
+				543C612E1DD6B8FE007C76AC /* Controller */,
+				543C61351DD6B8FE007C76AC /* Model */,
+				543C613A1DD6B8FE007C76AC /* View */,
+				543C612C1DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.h */,
+				543C612D1DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.m */,
+				543C61331DD6B8FE007C76AC /* iCarousel.h */,
+				543C61341DD6B8FE007C76AC /* iCarousel.m */,
 			);
-			path = CustomizableCamera;
+			path = FinalVersion;
 			sourceTree = "<group>";
 		};
-		2A6A3A761DD0636B003277D5 /* Camera View */ = {
+		543C612E1DD6B8FE007C76AC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2A6A3A771DD0636B003277D5 /* CameraSessionView.h */,
-				2A6A3A781DD0636B003277D5 /* CameraSessionView.m */,
+				543C61311DD6B8FE007C76AC /* TakePhotoViewController.h */,
+				543C61321DD6B8FE007C76AC /* TakePhotoViewController.m */,
+				543C612F1DD6B8FE007C76AC /* PhotoDetailViewController.h */,
+				543C61301DD6B8FE007C76AC /* PhotoDetailViewController.m */,
 			);
-			path = "Camera View";
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		2A6A3A791DD0636B003277D5 /* Graphical Assets */ = {
+		543C61351DD6B8FE007C76AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2A6A3A7A1DD0636B003277D5 /* CameraViewComponents */,
-				2A6A3A871DD0636B003277D5 /* Cool Camera Mockup.sketch */,
-				2A6A3A881DD0636B003277D5 /* PaintCodeFile.pcvd */,
-				2A6A3A891DD0636B003277D5 /* UI Assets */,
+				543C61361DD6B8FE007C76AC /* CaptureSessionManager.h */,
+				543C61371DD6B8FE007C76AC /* CaptureSessionManager.m */,
+				543C61381DD6B8FE007C76AC /* Constants.h */,
+				543C61391DD6B8FE007C76AC /* Constants.m */,
 			);
-			path = "Graphical Assets";
+			path = Model;
 			sourceTree = "<group>";
 		};
-		2A6A3A7A1DD0636B003277D5 /* CameraViewComponents */ = {
+		543C613A1DD6B8FE007C76AC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2A6A3A7B1DD0636B003277D5 /* CameraDismissButton.h */,
-				2A6A3A7C1DD0636B003277D5 /* CameraDismissButton.m */,
-				2A6A3A7D1DD0636B003277D5 /* CameraFlashButton.h */,
-				2A6A3A7E1DD0636B003277D5 /* CameraFlashButton.m */,
-				2A6A3A7F1DD0636B003277D5 /* CameraFocalReticule.h */,
-				2A6A3A801DD0636B003277D5 /* CameraFocalReticule.m */,
-				2A6A3A811DD0636B003277D5 /* CameraShutterButton.h */,
-				2A6A3A821DD0636B003277D5 /* CameraShutterButton.m */,
-				2A6A3A831DD0636B003277D5 /* CameraToggleButton.h */,
-				2A6A3A841DD0636B003277D5 /* CameraToggleButton.m */,
-				2A6A3A851DD0636B003277D5 /* LaunchCameraButton.h */,
-				2A6A3A861DD0636B003277D5 /* LaunchCameraButton.m */,
+				543C613B1DD6B8FE007C76AC /* CameraFlashButton.h */,
+				543C613C1DD6B8FE007C76AC /* CameraFlashButton.m */,
+				543C613D1DD6B8FE007C76AC /* CameraFocalReticule.h */,
+				543C613E1DD6B8FE007C76AC /* CameraFocalReticule.m */,
+				543C613F1DD6B8FE007C76AC /* CameraSessionView.h */,
+				543C61401DD6B8FE007C76AC /* CameraSessionView.m */,
+				543C61411DD6B8FE007C76AC /* CameraShutterButton.h */,
+				543C61421DD6B8FE007C76AC /* CameraShutterButton.m */,
+				543C61431DD6B8FE007C76AC /* CameraToggleButton.h */,
+				543C61441DD6B8FE007C76AC /* CameraToggleButton.m */,
 			);
-			path = CameraViewComponents;
-			sourceTree = "<group>";
-		};
-		2A6A3A891DD0636B003277D5 /* UI Assets */ = {
-			isa = PBXGroup;
-			children = (
-				2A6A3A8A1DD0636B003277D5 /* CameraStyleKitClass.h */,
-				2A6A3A8B1DD0636B003277D5 /* CameraStyleKitClass.m */,
-			);
-			path = "UI Assets";
-			sourceTree = "<group>";
-		};
-		2A6A3A8C1DD0636B003277D5 /* Model Classes */ = {
-			isa = PBXGroup;
-			children = (
-				2A6A3A8D1DD0636B003277D5 /* CaptureSessionManager.h */,
-				2A6A3A8E1DD0636B003277D5 /* CaptureSessionManager.m */,
-				2A6A3A8F1DD0636B003277D5 /* Constants.h */,
-				2A6A3A901DD0636B003277D5 /* Constants.m */,
-			);
-			path = "Model Classes";
-			sourceTree = "<group>";
-		};
-		2A6A3AA31DD1A54F003277D5 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Manager;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,9 +329,6 @@
 			files = (
 				2A6A3A4C1DD021F6003277D5 /* LaunchScreen.storyboard in Resources */,
 				2A6A3A491DD021F6003277D5 /* Assets.xcassets in Resources */,
-				2A6A3A991DD0636B003277D5 /* PaintCodeFile.pcvd in Resources */,
-				2A6A3A981DD0636B003277D5 /* Cool Camera Mockup.sketch in Resources */,
-				2A6A3A471DD021F6003277D5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,26 +353,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A6A3A911DD0636B003277D5 /* CameraSessionView.m in Sources */,
-				2A31C2301DD458260090DA01 /* iCarousel.m in Sources */,
-				2A6A3AA61DD1A8D7003277D5 /* Camera3ViewController.m in Sources */,
-				2A6A3A941DD0636B003277D5 /* CameraFocalReticule.m in Sources */,
-				2A6A3A961DD0636B003277D5 /* CameraToggleButton.m in Sources */,
-				2A6A3A971DD0636B003277D5 /* LaunchCameraButton.m in Sources */,
-				2A6A3A931DD0636B003277D5 /* CameraFlashButton.m in Sources */,
-				2A6A3A9C1DD0636B003277D5 /* Constants.m in Sources */,
+				543C614E1DD6B8FE007C76AC /* CameraShutterButton.m in Sources */,
+				543C614A1DD6B8FE007C76AC /* Constants.m in Sources */,
+				543C61451DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.m in Sources */,
 				2A6A3A441DD021F6003277D5 /* ViewController.m in Sources */,
-				2A6A3AAF1DD41AC9003277D5 /* ALAssetsLibrary+CDAssetsLibrary.m in Sources */,
-				2A6A3A9A1DD0636B003277D5 /* CameraStyleKitClass.m in Sources */,
-				2A6A3A711DD0253E003277D5 /* CameraViewController.m in Sources */,
-				2A6A3A741DD04B6A003277D5 /* Camera1ViewController.m in Sources */,
-				2A6A3A951DD0636B003277D5 /* CameraShutterButton.m in Sources */,
-				2A6A3AAC1DD33824003277D5 /* PictureDetailViewController.m in Sources */,
+				543C614C1DD6B8FE007C76AC /* CameraFocalReticule.m in Sources */,
+				543C61461DD6B8FE007C76AC /* PhotoDetailViewController.m in Sources */,
+				543C61491DD6B8FE007C76AC /* CaptureSessionManager.m in Sources */,
 				2A6A3A411DD021F6003277D5 /* AppDelegate.m in Sources */,
-				2A6A3A9F1DD17E3F003277D5 /* Camera2ViewController.m in Sources */,
+				543C614D1DD6B8FE007C76AC /* CameraSessionView.m in Sources */,
+				543C614B1DD6B8FE007C76AC /* CameraFlashButton.m in Sources */,
 				2A6A3A3E1DD021F6003277D5 /* main.m in Sources */,
-				2A6A3A921DD0636B003277D5 /* CameraDismissButton.m in Sources */,
-				2A6A3A9B1DD0636B003277D5 /* CaptureSessionManager.m in Sources */,
+				543C61481DD6B8FE007C76AC /* iCarousel.m in Sources */,
+				543C61471DD6B8FE007C76AC /* TakePhotoViewController.m in Sources */,
+				543C614F1DD6B8FE007C76AC /* CameraToggleButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,14 +402,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2A6A3A451DD021F6003277D5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2A6A3A461DD021F6003277D5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2A6A3A4A1DD021F6003277D5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

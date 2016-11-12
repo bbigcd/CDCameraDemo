@@ -9,7 +9,8 @@
 #import "ViewController.h"
 #import "CameraViewController.h"
 #import "Camera1ViewController.h"
-#import "Camera2ViewController.h"
+//#import "Camera2ViewController.h"
+#import "TakePhotoViewController.h"
 
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -77,8 +78,8 @@ static NSString *const ID = @"cell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 //    CameraViewController *vc = [[CameraViewController alloc] init];
-    
-    Camera1ViewController *vc = [[Camera1ViewController alloc] init];
+    TakePhotoViewController *vc = [[TakePhotoViewController alloc] init];
+//    Camera1ViewController *vc = [[Camera1ViewController alloc] init];
     
 //    Camera2ViewController *vc = [[Camera2ViewController alloc] init];
     

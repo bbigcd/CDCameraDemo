@@ -218,7 +218,7 @@
         case ShutterButtonTag:  [self onTapShutterButton];  return;
         case ToggleButtonTag:   [self onTapToggleButton];   return;
         case FlashButtonTag:    [self onTapFlashButton];    return;
-        case DismissButtonTag:  [self onTapDismissButton];  return;
+//        case DismissButtonTag:  [self onTapDismissButton];  return;
     }
 }
 
