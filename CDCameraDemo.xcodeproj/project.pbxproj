@@ -210,12 +210,12 @@
 		543C613A1DD6B8FE007C76AC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				543C613F1DD6B8FE007C76AC /* CameraSessionView.h */,
+				543C61401DD6B8FE007C76AC /* CameraSessionView.m */,
 				543C613B1DD6B8FE007C76AC /* CameraFlashButton.h */,
 				543C613C1DD6B8FE007C76AC /* CameraFlashButton.m */,
 				543C613D1DD6B8FE007C76AC /* CameraFocalReticule.h */,
 				543C613E1DD6B8FE007C76AC /* CameraFocalReticule.m */,
-				543C613F1DD6B8FE007C76AC /* CameraSessionView.h */,
-				543C61401DD6B8FE007C76AC /* CameraSessionView.m */,
 				543C61411DD6B8FE007C76AC /* CameraShutterButton.h */,
 				543C61421DD6B8FE007C76AC /* CameraShutterButton.m */,
 				543C61431DD6B8FE007C76AC /* CameraToggleButton.h */,

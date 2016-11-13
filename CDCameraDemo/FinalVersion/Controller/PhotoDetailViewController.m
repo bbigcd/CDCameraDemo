@@ -7,7 +7,7 @@
 //
 
 #import "PhotoDetailViewController.h"
-#import "ALAssetsLibrary+CDAssetsLibrary.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "iCarousel.h"
 
 @interface PhotoDetailViewController ()
@@ -16,32 +16,28 @@ iCarouselDataSource>
 
 {
     iCarousel *_icarousel;
+    ALAssetsLibrary *library;
+    NSArray *imageArray;
+    NSMutableArray *mutableArray;
 }
 
-@property (nonatomic, strong) NSMutableArray *imagesArray;
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) UIButton *dismissBtn;
 
 @end
 
 @implementation PhotoDetailViewController
 
+static NSInteger count = 0;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor whiteColor];
     
-    self.imagesArray = [[NSMutableArray alloc] init];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
-//    self.dataSource = @[[UIColor blueColor], [UIColor redColor]];
-    [self getFirstPhoto];
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [self getAllPictures];
     
-//    });
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self setupiCarousel];
-    });
-    
-    
+    [self setupiCarousel];
+        
     [self setupDismissBtn];
 }
 
@@ -52,50 +48,69 @@ iCarouselDataSource>
     _icarousel.dataSource = self;
     _icarousel.type = iCarouselTypeLinear;
     _icarousel.pagingEnabled  = YES;
-    _icarousel.scrollEnabled = self.dataSource.count > 1;
+    _icarousel.scrollEnabled = YES;
     [self.view addSubview:_icarousel];
 }
 
 - (void)setupDismissBtn{
-    UIButton *bnt = [UIButton buttonWithType:UIButtonTypeSystem];
-    [bnt setFrame:CGRectMake(10, CGRectGetHeight(self.view.frame) - 72.5, 60, 60)];
-    [bnt setTintColor:[UIColor blackColor]];
-    [bnt setTitle:@"返回" forState:UIControlStateNormal];
-    [bnt addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:bnt];
+    if (_dismissBtn == nil) {
+        _dismissBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_dismissBtn setFrame:CGRectMake(10, CGRectGetHeight(self.view.frame) - 72.5, 60, 60)];
+        [_dismissBtn setTintColor:[UIColor whiteColor]];
+        [_dismissBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [_dismissBtn addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_dismissBtn];
+    }
 }
 
-- (void)getFirstPhoto{
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    __weak typeof(self) weakSelf = self;
-    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group) {
-            [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-            /* NSEnumerationReverse 遍历方式*/
-            [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                if (result) {
-                    ALAssetRepresentation *representation = [result defaultRepresentation];
-                    
-//                    NSDate *imageDate = [result valueForProperty:ALAssetPropertyDate];
-                    UIImage *fullResolutionImage = [UIImage imageWithCGImage:[representation fullScreenImage]];
-                    [weakSelf.imagesArray addObject:fullResolutionImage];
-//                NSLog(@"count - %ld", weakSelf.imagesArray.count);
-                    *stop = YES;
-                }
-                
-            }];
-            *stop = YES;
-        }
-    } failureBlock:^(NSError *error) {
-//        if (error) {
-//            if (block) {
-//                block(nil,error);
-//            }
-//        }
-    }];
+- (void)getAllPictures{
+    library = [[ALAssetsLibrary alloc] init];
+    imageArray = [[NSArray alloc] init];
+    mutableArray = [[NSMutableArray alloc] init];
+    NSMutableArray *assetURLDictionaries = [[NSMutableArray alloc] init];
     
+    void (^assetEnumerator)( ALAsset *, NSUInteger, BOOL *) = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
+        if(result != nil) {
+            if([[result valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypePhoto]) {
+                [assetURLDictionaries addObject:[result valueForProperty:ALAssetPropertyURLs]];
+                
+                NSURL *url= (NSURL*) [[result defaultRepresentation] url];
+                
+                [library assetForURL:url
+                         resultBlock:^(ALAsset *asset){
+                             [mutableArray addObject:asset];
+                             
+                             if ([mutableArray count] == count){
+                                 imageArray = [[NSArray alloc] initWithArray:mutableArray];
+                                 [_icarousel reloadData];
+                             }
+                         }
+                        failureBlock:^(NSError *error){
+                            NSLog(@"operation was not successfull!");
+                        }];
+                
+            } 
+        }
+    };
+    
+    NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
+    
+    void (^ assetGroupEnumerator) (ALAssetsGroup *, BOOL *)= ^(ALAssetsGroup *group, BOOL *stop) {
+        if(group != nil) {
+            [group enumerateAssetsUsingBlock:assetEnumerator];
+            [assetGroups addObject:group];
+            count = [group numberOfAssets];
+        }
+    };
+    
+    assetGroups = [[NSMutableArray alloc] init];
+    
+    [library enumerateGroupsWithTypes:ALAssetsGroupAll
+                           usingBlock:assetGroupEnumerator
+                         failureBlock:^(NSError *error) {
+                             NSLog(@"There is an error");
+                         }];
 }
-
 
 - (void)dismissViewController{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -107,10 +122,6 @@ iCarouselDataSource>
     if (option == iCarouselOptionWrap) {
         return YES;
     }
-//    if (option == iCarouselOptionSpacing) {
-//        return 0;
-//    }
-//    NSLog(@"%f", value);
     return value;
     
 }
@@ -123,8 +134,7 @@ iCarouselDataSource>
 #pragma mark --iCarouselDataSource--
 
 - (NSInteger)numberOfItemsInCarousel:(iCarousel *)carousel{
-    return self.imagesArray.count;
-//    return self.dataSource.count;
+    return imageArray.count;
 }
 
 - (CGFloat)carouselItemWidth:(iCarousel *)carousel{
@@ -134,36 +144,24 @@ iCarouselDataSource>
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(nullable UIView *)view{
     
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    ALAsset *asset = imageArray[index];
+    imageView.image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+    
      UIView *cardView = view;
-     if (!cardView) {
-         cardView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cardView.bounds.size.width, cardView.bounds.size.height)];
-         
-         UIImageView *imageView = [[UIImageView alloc] initWithFrame:cardView.bounds];
-         [cardView addSubview:imageView];
-         imageView.contentMode = UIViewContentModeScaleAspectFit;
-//         imageView.tag = 100;
-         imageView.image = self.imagesArray[index];
-         view.clipsToBounds = YES;
-         view.backgroundColor = [UIColor darkGrayColor];
-     
+     if (cardView == nil) {
+         cardView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
      }
-     
+    
+    [cardView addSubview:imageView];
      return cardView;
     
-//    if (view == nil) {
-//        UIView *colorView = [[UIView alloc] initWithFrame:carousel.bounds];
-//        colorView.backgroundColor = self.dataSource[index];
-//        return colorView;
-//    }else{
-//        view.backgroundColor = self.dataSource[index];
-//        return view;
-//    }
-//    return nil;
 }
-/*
-- (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
-{
-    return CATransform3DTranslate(transform, offset * self.view.frame.size.width, 0, 0);
+
+
+- (void)dealloc{
+    _icarousel = nil;
 }
-*/
+
 @end

@@ -31,7 +31,8 @@
 
 // 界面按钮
 @property (nonatomic, strong) CameraShutterButton *cameraShutter;
-@property (nonatomic, strong) CameraFlashButton *cameraFlash;
+//@property (nonatomic, strong) CameraFlashButton *cameraFlash;
+@property (nonatomic, strong) UIButton *cameraFlash;
 @property (nonatomic, strong) CameraToggleButton *cameraToggle;
 @property (nonatomic, strong) CameraFocalReticule *focalReticule;
 
@@ -102,37 +103,35 @@
     shutterButtonSize = CGSizeMake(self.bounds.size.width * 0.21, self.bounds.size.width * 0.21);
     barButtonItemSize = CGSizeMake([[UIScreen mainScreen] bounds].size.height * 0.05, [[UIScreen mainScreen] bounds].size.height * 0.05);
     
-    
-    
     if (_captureManager) {
+        
         // 拍照按钮
         _cameraShutter = [[CameraShutterButton alloc] init];
-        _cameraShutter.frame = (CGRect){0,0, shutterButtonSize};
+        _cameraShutter.frame = (CGRect){0, 0, shutterButtonSize};
         _cameraShutter.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height - 45);
         _cameraShutter.backgroundColor = [UIColor clearColor];
-        _cameraShutter.tag = ShutterButtonTag;
-        [_cameraShutter addTarget:self action:@selector(buttonTapManager:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraShutter addTarget:self action:@selector(onTapShutterButton) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_cameraShutter];
         
         // 闪光灯
-        _cameraFlash = [[CameraFlashButton alloc] init];
-        _cameraFlash.frame = (CGRect){0,0, barButtonItemSize};
+        _cameraFlash = [[UIButton alloc] init];
+        _cameraFlash.frame = (CGRect){0, 0, barButtonItemSize};
+        _cameraFlash.backgroundColor = [UIColor greenColor];
         _cameraFlash.center = CGPointMake(40, 45);
-        _cameraFlash.tag = FlashButtonTag;
-        [_cameraFlash addTarget:self action:@selector(buttonTapManager:) forControlEvents:UIControlEventTouchUpInside];
+        _cameraFlash.tag = FlashCurrentStateOff;
+        [_cameraFlash addTarget:self action:@selector(onTapFlashButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_cameraFlash];
     
         // 切换摄像头
         _cameraToggle = [[CameraToggleButton alloc] init];
-        _cameraToggle.frame = (CGRect){0,0, barButtonItemSize};
+        _cameraToggle.frame = (CGRect){0, 0, barButtonItemSize};
         _cameraToggle.center = CGPointMake(CGRectGetWidth(self.frame) - 40, 45);
-        _cameraToggle.tag = ToggleButtonTag;
-        [_cameraToggle addTarget:self action:@selector(buttonTapManager:) forControlEvents:UIControlEventTouchUpInside];
+        [_cameraToggle addTarget:self action:@selector(onTapToggleButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_cameraToggle];
         
         // 聚焦按钮
         _focalReticule = [[CameraFocalReticule alloc] init];
-        _focalReticule.frame = (CGRect){0,0, 60, 60};
+        _focalReticule.frame = (CGRect){0, 0, 60, 60};
         _focalReticule.backgroundColor = [UIColor clearColor];
         _focalReticule.hidden = YES;
         [self addSubview:_focalReticule];
@@ -145,33 +144,50 @@
 
 #pragma mark -- 用户交互 --
 
-- (void)buttonTapManager:(id)sender{
+- (void)onTapShutterButton{
+    if (_animationInProgress){
+        return;
+    }
+    [self animateShutterRelease];
+    [_captureManager captureStillImage];
+}
+
+- (void)onTapFlashButton:(id)sender{
     if (_animationInProgress){
         return;
     }
     if (![sender isKindOfClass:[UIButton class]]) {
         return;
     }
-    switch ([(UIButton *)sender tag]) {
-        case ShutterButtonTag:  [self onTapShutterButton];  return;
-        case ToggleButtonTag:   [self onTapToggleButton];   return;
-        case FlashButtonTag:    [self onTapFlashButton];    return;
-    }
-}
-
-- (void)onTapShutterButton{
-    [self animateShutterRelease];
-    [_captureManager captureStillImage];
-}
-
-- (void)onTapFlashButton{
-//    BOOL enable = !self.captureManager.isTorchEnabled;
-//    self.captureManager.enableTorch = enable;
+    UIButton *btn = (UIButton *)sender;
     
-    [_captureManager setCameraFlashModel:FlashCurrentStateAuto];
+#warning 在这里改变闪光灯的状态，使用不同的背景图来表示不同的状态
+    switch (btn.tag) {
+        case FlashCurrentStateOn:
+            btn.tag = FlashCurrentStateAuto;
+            _cameraFlash.backgroundColor = [UIColor yellowColor];
+            break;
+        case FlashCurrentStateOff:
+            btn.tag = FlashCurrentStateOn;
+            _cameraFlash.backgroundColor = [UIColor blueColor];
+            break;
+        case FlashCurrentStateAuto:
+            btn.tag = FlashCurrentStateOff;
+            _cameraFlash.backgroundColor = [UIColor greenColor];
+            break;
+        default:
+            break;
+    }
+    [_captureManager setCameraFlashModel:btn.tag];
 }
 
-- (void)onTapToggleButton{
+- (void)onTapToggleButton:(id)sender{
+    if (_animationInProgress){
+        return;
+    }
+    if (![sender isKindOfClass:[UIButton class]]) {
+        return;
+    }
     if (cameraBeingUsed == RearFacingCamera) {
         [self setupCaptureManager:FrontFacingCamera];
         cameraBeingUsed = FrontFacingCamera;
@@ -188,6 +204,7 @@
         _cameraFlash.hidden = NO;
     }
 }
+
 
 - (void)focusGesture:(id)sender {
     

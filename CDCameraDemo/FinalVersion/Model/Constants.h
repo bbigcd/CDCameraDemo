@@ -17,12 +17,6 @@ typedef NS_ENUM(BOOL, CameraType){
     RearFacingCamera,
 };
 
-typedef NS_ENUM(NSInteger, BarButtonTag){
-    ShutterButtonTag,
-    ToggleButtonTag,
-    FlashButtonTag,
-};
-
 typedef NS_ENUM(NSInteger, FlashCurrentState){
     FlashCurrentStateOn,
     FlashCurrentStateOff,
