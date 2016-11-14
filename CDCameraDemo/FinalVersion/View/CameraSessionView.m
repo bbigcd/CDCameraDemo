@@ -116,7 +116,7 @@
         // 闪光灯
         _cameraFlash = [[UIButton alloc] init];
         _cameraFlash.frame = (CGRect){0, 0, barButtonItemSize};
-        _cameraFlash.backgroundColor = [UIColor greenColor];
+        [_cameraFlash setImage:[UIImage imageNamed:@"flashlight"] forState:UIControlStateNormal];
         _cameraFlash.center = CGPointMake(40, 45);
         _cameraFlash.tag = FlashCurrentStateOff;
         [_cameraFlash addTarget:self action:@selector(onTapFlashButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -161,19 +161,18 @@
     }
     UIButton *btn = (UIButton *)sender;
     
-#warning 在这里改变闪光灯的状态，使用不同的背景图来表示不同的状态
     switch (btn.tag) {
         case FlashCurrentStateOn:
             btn.tag = FlashCurrentStateAuto;
-            _cameraFlash.backgroundColor = [UIColor yellowColor];
+            [_cameraFlash setImage:[UIImage imageNamed:@"flashlight_auto"] forState:UIControlStateNormal];
             break;
         case FlashCurrentStateOff:
             btn.tag = FlashCurrentStateOn;
-            _cameraFlash.backgroundColor = [UIColor blueColor];
+            [_cameraFlash setImage:[UIImage imageNamed:@"flashlight_on"] forState:UIControlStateNormal];
             break;
         case FlashCurrentStateAuto:
             btn.tag = FlashCurrentStateOff;
-            _cameraFlash.backgroundColor = [UIColor greenColor];
+            [_cameraFlash setImage:[UIImage imageNamed:@"flashlight"] forState:UIControlStateNormal];
             break;
         default:
             break;
