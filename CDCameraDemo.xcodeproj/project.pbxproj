@@ -291,6 +291,7 @@
 				TargetAttributes = {
 					2A6A3A381DD021F6003277D5 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 7E2J7CUZTM;
 					};
 					2A6A3A511DD021F6003277D5 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -499,6 +500,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7E2J7CUZTM;
 				INFOPLIST_FILE = CDCameraDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -511,6 +513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7E2J7CUZTM;
 				INFOPLIST_FILE = CDCameraDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -30,9 +30,8 @@
 @property (nonatomic, strong) CaptureSessionManager *captureManager;
 
 // 界面按钮
-@property (nonatomic, strong) CameraShutterButton *cameraShutter;
-//@property (nonatomic, strong) CameraFlashButton *cameraFlash;
 @property (nonatomic, strong) UIButton *cameraFlash;
+@property (nonatomic, strong) CameraShutterButton *cameraShutter;
 @property (nonatomic, strong) CameraToggleButton *cameraToggle;
 @property (nonatomic, strong) CameraFocalReticule *focalReticule;
 
@@ -114,9 +113,9 @@
         [self addSubview:_cameraShutter];
         
         // 闪光灯
-        _cameraFlash = [[UIButton alloc] init];
+        _cameraFlash = [UIButton buttonWithType:UIButtonTypeCustom];
         _cameraFlash.frame = (CGRect){0, 0, barButtonItemSize};
-        [_cameraFlash setImage:[UIImage imageNamed:@"flashlight"] forState:UIControlStateNormal];
+        [_cameraFlash setImage:[UIImage imageNamed:@"flashlight_off"] forState:UIControlStateNormal];
         _cameraFlash.center = CGPointMake(40, 45);
         _cameraFlash.tag = FlashCurrentStateOff;
         [_cameraFlash addTarget:self action:@selector(onTapFlashButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -172,7 +171,7 @@
             break;
         case FlashCurrentStateAuto:
             btn.tag = FlashCurrentStateOff;
-            [_cameraFlash setImage:[UIImage imageNamed:@"flashlight"] forState:UIControlStateNormal];
+            [_cameraFlash setImage:[UIImage imageNamed:@"flashlight_off"] forState:UIControlStateNormal];
             break;
         default:
             break;
@@ -294,7 +293,6 @@
     
     if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
         
-        //Lock camera for configuration if possible
         NSError *error;
         if ([device lockForConfiguration:&error]) {
             
@@ -320,45 +318,33 @@
     else { completionHandler(); }
 }
 
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-//}
-
 - (BOOL)shouldAutorotate
 {
     return NO;
 }
 
-//- (NSUInteger)supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskPortrait;
-//}
-
-//- (void)viewDidDisappear:(BOOL)animated{
-//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-//}
 
 #pragma mark -- 公共方法 --
 
-- (void)setTopBarColor:(UIColor *)topBarColor
-{
+//- (void)setTopBarColor:(UIColor *)topBarColor
+//{
 //    _topBarView.backgroundColor = topBarColor;
-}
+//}
 
-- (void)hideFlashButton
-{
+//- (void)hideFlashButton
+//{
 //    _cameraFlash.hidden = YES;
-}
+//}
 
-- (void)hideCameraToggleButton
-{
+//- (void)hideCameraToggleButton
+//{
 //    _cameraToggle.hidden = YES;
-}
+//}
 
-- (void)hideDismissButton
-{
+//- (void)hideDismissButton
+//{
     //    _cameraDismiss.hidden = YES;
-}
+//}
 
 
 

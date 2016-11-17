@@ -27,12 +27,13 @@ iCarouselDataSource>
 
 @implementation PhotoDetailViewController
 
+// 停止条件
 static NSInteger count = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor colorWithHue:0.00 saturation:0.00 brightness:0.97 alpha:1.00]];
     
     [self getAllPictures];
     
@@ -56,8 +57,9 @@ static NSInteger count = 0;
     if (_dismissBtn == nil) {
         _dismissBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_dismissBtn setFrame:CGRectMake(10, CGRectGetHeight(self.view.frame) - 72.5, 60, 60)];
-        [_dismissBtn setTintColor:[UIColor whiteColor]];
-        [_dismissBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [_dismissBtn setTintColor:[UIColor blackColor]];
+        _dismissBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [_dismissBtn setTitle:@"Back" forState:UIControlStateNormal];
         [_dismissBtn addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_dismissBtn];
     }
@@ -67,48 +69,42 @@ static NSInteger count = 0;
     library = [[ALAssetsLibrary alloc] init];
     imageArray = [[NSArray alloc] init];
     mutableArray = [[NSMutableArray alloc] init];
-    NSMutableArray *assetURLDictionaries = [[NSMutableArray alloc] init];
     
-    void (^assetEnumerator)( ALAsset *, NSUInteger, BOOL *) = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
+    // 枚举block 将ALAsset存入数组，直接存图片会导致运行内存过高
+    void (^assetEnumerator)(ALAsset *, NSUInteger, BOOL *) = ^(ALAsset *result, NSUInteger index, BOOL *stop) {
         if(result != nil) {
             if([[result valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypePhoto]) {
-                [assetURLDictionaries addObject:[result valueForProperty:ALAssetPropertyURLs]];
                 
                 NSURL *url= (NSURL*) [[result defaultRepresentation] url];
                 
-                [library assetForURL:url
-                         resultBlock:^(ALAsset *asset){
+                [library assetForURL:url resultBlock:^(ALAsset *asset){
                              [mutableArray addObject:asset];
-                             
                              if ([mutableArray count] == count){
                                  imageArray = [[NSArray alloc] initWithArray:mutableArray];
                                  [_icarousel reloadData];
                              }
                          }
                         failureBlock:^(NSError *error){
-                            NSLog(@"operation was not successfull!");
+                            NSLog(@"获取照片失败");
                         }];
-                
             } 
         }
     };
     
-    NSMutableArray *assetGroups = [[NSMutableArray alloc] init];
-    
     void (^ assetGroupEnumerator) (ALAssetsGroup *, BOOL *)= ^(ALAssetsGroup *group, BOOL *stop) {
         if(group != nil) {
-            [group enumerateAssetsUsingBlock:assetEnumerator];
-            [assetGroups addObject:group];
+            [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+            // NSEnumerationReverse逆序遍历
+            [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:assetEnumerator];
             count = [group numberOfAssets];
         }
     };
     
-    assetGroups = [[NSMutableArray alloc] init];
-    
-    [library enumerateGroupsWithTypes:ALAssetsGroupAll
+    // 外层枚举
+    [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
                            usingBlock:assetGroupEnumerator
                          failureBlock:^(NSError *error) {
-                             NSLog(@"There is an error");
+                             NSLog(@"获取相册异常");
                          }];
 }
 
@@ -122,6 +118,9 @@ static NSInteger count = 0;
     if (option == iCarouselOptionWrap) {
         return YES;
     }
+//    else if (option == iCarouselOptionSpacing){
+//        return 10;
+//    }
     return value;
     
 }
@@ -138,27 +137,30 @@ static NSInteger count = 0;
 }
 
 - (CGFloat)carouselItemWidth:(iCarousel *)carousel{
-    return [UIScreen mainScreen].bounds.size.width;
+    return 200;
 }
 
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(nullable UIView *)view{
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
     ALAsset *asset = imageArray[index];
-    imageView.image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-    
-     UIView *cardView = view;
-     if (cardView == nil) {
-         cardView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-     }
-    
-    [cardView addSubview:imageView];
-     return cardView;
-    
+    // 由于view只有一个superview,此处用tag来解决重用问题
+    if (view == nil) {
+        view = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        view.tag = 1;
+        ((UIImageView *)view).contentMode = UIViewContentModeScaleAspectFit;
+        ((UIImageView *)view).clipsToBounds = YES;
+        ((UIImageView *)view).image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+    }else{
+        view = (UIImageView *)[view viewWithTag:1];
+        ((UIImageView *)view).image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+    }
+    return view;
 }
 
+
+- (BOOL)prefersStatusBarHidden{
+    return YES;
+}
 
 - (void)dealloc{
     _icarousel = nil;

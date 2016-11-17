@@ -10,6 +10,8 @@
 #import "CameraSessionView.h"
 #import "ALAssetsLibrary+CDAssetsLibrary.h"
 #import "PhotoDetailViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <objc/runtime.h>
 
 @interface TakePhotoViewController ()<CACameraSessionDelegate>
 
@@ -22,31 +24,29 @@
 
 @implementation TakePhotoViewController
 
+static void *AuthorizationStatusKey = @"AuthorizationStatusKey";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self setNeedsStatusBarAppearanceUpdate];
+    // 判断应用是否获取相机权限
+    [self checkAuthorizationStatus];
     
-    //Instantiate the camera view & assign its frame
+    //初始化
     _cameraView = [[CameraSessionView alloc] initWithFrame:self.view.frame];
-    
-    //Set the camera view's delegate and add it as a subview
+
     _cameraView.delegate = self;
     
-    //Apply animation effect to present the camera view
     CATransition *applicationLoadViewIn =[CATransition animation];
     [applicationLoadViewIn setDuration:0.6];
     [applicationLoadViewIn setType:kCATransitionReveal];
     [applicationLoadViewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
     [[_cameraView layer]addAnimation:applicationLoadViewIn forKey:kCATransitionReveal];
-    [_cameraView setTopBarColor:[UIColor darkGrayColor]];
-    //    [_cameraView hideFlashButton]; //On iPad flash is not present, hence it wont appear.
-    //    [_cameraView hideCameraToggleButton];
-    //    [_cameraView hideDismissButton];
     [self.view addSubview:_cameraView];
     
     [self setupDismissBtn];
     [self setupPicturePreview];
-    [self getAllPhoto];
+    [self getLatestPicture];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -54,7 +54,42 @@
     
 }
 
-- (void)getAllPhoto{
+- (void)checkAuthorizationStatus{
+    AVAuthorizationStatus videoAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    ALAuthorizationStatus photoAuthStatus = [ALAssetsLibrary authorizationStatus];
+    
+    if(videoAuthStatus == ALAuthorizationStatusRestricted ||
+       videoAuthStatus == ALAuthorizationStatusDenied ||
+       photoAuthStatus == ALAuthorizationStatusDenied){
+        NSLog(@"H band访问相机或相册权限受到限制");
+        NSString *title = @"H band访问相机或相册权限受到限制";
+        
+        NSString *sure = @"Settings";
+        NSString *cancel = @"Cancel";
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:cancel otherButtonTitles:sure, nil];
+        void (^block)(NSInteger) = ^(NSInteger buttonIndex)
+        {
+            if (buttonIndex == 0) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }else{
+                // 跳转应用设置开启权限
+                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                if([[UIApplication sharedApplication] canOpenURL:url]) {
+                    [[UIApplication sharedApplication] openURL:url];
+                }
+            }
+        };
+        objc_setAssociatedObject(alertView, AuthorizationStatusKey, block, OBJC_ASSOCIATION_COPY);
+        [alertView show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    void (^block)(NSInteger) = objc_getAssociatedObject(alertView, AuthorizationStatusKey);
+    block(buttonIndex);
+}
+
+- (void)getLatestPicture{
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library latestAsset:^(ALAsset * _Nullable asset, NSError * _Nullable error) {
         if (!error) {
@@ -69,7 +104,8 @@
     UIButton *bnt = [UIButton buttonWithType:UIButtonTypeSystem];
     [bnt setFrame:CGRectMake(10, CGRectGetHeight(self.view.frame) - 72.5, 60, 60)];
     [bnt setTintColor:[UIColor whiteColor]];
-    [bnt setTitle:@"取消" forState:UIControlStateNormal];
+    bnt.titleLabel.adjustsFontSizeToFitWidth = YES;
+    [bnt setTitle:@"Cancel" forState:UIControlStateNormal];
     [bnt addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bnt];
 }
@@ -102,32 +138,28 @@
 #pragma mark -- CACameraSessionDelegate --
 
 - (void)didCaptureImage:(UIImage *)image{
-    NSLog(@"CAPTURED IMAGE");
+    NSLog(@"获得image数据");
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-//    [self.cameraView removeFromSuperview];
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    _picturePreviewImageView.image = image;
-    
-    
 }
 
 - (void)didCaptureImageWithData:(NSData *)imageData{
-    NSLog(@"CAPTURED IMAGE DATA");
-    //UIImage *image = [[UIImage alloc] initWithData:imageData];
-    //UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    //[self.cameraView removeFromSuperview];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"获得image的data数据");
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
-    if (error) [[[UIAlertView alloc] initWithTitle:@"Error!" message:@"Image couldn't be saved" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+    if (error){
+        NSLog(@"H band访问相机或相册权限受到限制");
+    }
     
-    [self getAllPhoto];
+    [self getLatestPicture];
 }
 
 //- (BOOL)prefersStatusBarHidden{
 //    return YES;
 //}
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 
 - (void)dealloc{
     [self.cameraView removeFromSuperview];

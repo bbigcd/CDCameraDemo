@@ -20,10 +20,10 @@
 
 @property (nonatomic, weak) id <CACameraSessionDelegate> delegate;
 
-- (void)setTopBarColor:(UIColor *)topBarColor;
-- (void)hideFlashButton;
-- (void)hideCameraToggleButton;
-- (void)hideDismissButton;
+//- (void)setTopBarColor:(UIColor *)topBarColor;
+//- (void)hideFlashButton;
+//- (void)hideCameraToggleButton;
+//- (void)hideDismissButton;
 - (void)onTapShutterButton;
 
 @end
