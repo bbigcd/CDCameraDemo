@@ -175,8 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				543C612E1DD6B8FE007C76AC /* Controller */,
-				543C61351DD6B8FE007C76AC /* Model */,
 				543C613A1DD6B8FE007C76AC /* View */,
+				543C61351DD6B8FE007C76AC /* Model */,
 				543C612C1DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.h */,
 				543C612D1DD6B8FE007C76AC /* ALAssetsLibrary+CDAssetsLibrary.m */,
 				543C61331DD6B8FE007C76AC /* iCarousel.h */,
@@ -527,6 +527,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CDCameraDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbigcd.CDCameraDemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -539,6 +540,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CDCameraDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbigcd.CDCameraDemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -550,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = CDCameraDemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbigcd.CDCameraDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -561,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = CDCameraDemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbigcd.CDCameraDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

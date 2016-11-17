@@ -137,7 +137,7 @@ static NSInteger count = 0;
 }
 
 - (CGFloat)carouselItemWidth:(iCarousel *)carousel{
-    return 200;
+    return [UIScreen mainScreen].bounds.size.width + 100;
 }
 
 
